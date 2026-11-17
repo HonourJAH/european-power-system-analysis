@@ -1,0 +1,8 @@
+# Raw and exported data files (never committed)
+data/raw/
+*.csv
+*.parquet
+
+# Operating system files
+.DS_Store
+Thumbs.db
