@@ -136,3 +136,81 @@ Table 3.1: Plain country code compared with the sum of its sub-areas (actual loa
 - Count the hours in which a sub-area total and the plain code differ by a large amount, and decide whether they need to be excluded.
 - Compare wind_generation_actual with wind_offshore_generation_actual.
 - Type the timestamps and readings in a clean layer, and reshape the table to one row for each hour and measure.
+
+## Part 4: Business questions and rules
+
+### Decision 8: Fix the five business questions and the rules before looking at any result
+
+- **Found:** The profiling showed which measures cover the whole period, that each country has one total column, and that prices exist for 8 countries only (Decisions 5 to 7).
+- **Decided:** The five questions in Table 4.1 are answered one at a time, and the rules below apply to all of them. They were fixed before any result was looked at.
+- **Why:** Fixing the questions and the rules first means the choices cannot be made to fit a pattern in the results.
+- **Limit:** The rules are choices, and different rules could give different results. Three things were not known when they were fixed: which countries pass the coverage rule, whether the solar and wind generation figures include small installations, and whether price zones line up with load zones for every country.
+
+Table 4.1: The five business questions
+
+| No. | Business question | Measures used |
+| --- | --- | --- |
+| 1 | How much electricity does each country use, and how did demand change from year to year, including 2020? | Actual load |
+| 2 | At what hours and on which days is demand highest, and does the daily shape change between winter and summer and between years? | Actual load, local time |
+| 3 | How much of demand is met by wind and solar generation, and how does the share change by year, season and country? | Actual load, solar and wind generation |
+| 4 | Where day-ahead prices exist, do prices rise with demand and fall when wind and solar output is high, and does this hold in each year? | Price, load, generation |
+| 5 | How accurate is the day-ahead load forecast, which countries have the largest errors, and does the error change by hour, season and year? | Load forecast, actual load |
+
+Rules for all questions:
+
+1. Country totals use the plain two-letter code, and GB_UKM for Great Britain (Decision 7). Sub-areas are used only where a question needs zones.
+2. Years are calendar years in UTC. The first hour (2014-12-31T23:00:00Z) falls in 2014 and is left out of yearly groups. 2015 to 2019 are full years. 2020 holds January to September, so it is compared only with January to September of the earlier years.
+3. The spring of 2020, when demand fell during the COVID-19 pandemic, is reported separately and is not blended into any statement about a trend.
+4. A country enters a year-by-year comparison only if its measure has readings in at least 90% of that year's hours. A whole-period figure needs at least 50,000 filled hours. Countries that fail are listed in the findings.
+5. Where hours are missing, figures are mean MW per hour and not totals, so a country with gaps is not understated. Every figure carries the number of hours behind it.
+6. Question 2 uses local Central European time and only countries on that clock. Every other question uses UTC.
+7. In question 3, the wind measure for each country is chosen when the data is seen, because wind_generation_actual may repeat the onshore and offshore columns. The choice and the reason are recorded here.
+8. In question 4, a zone is used only if its price, load and generation measures each have at least 40,000 filled hours under the same zone code.
+9. In question 5, the forecast error is the absolute difference between forecast and actual, divided by actual. The mean, median and 90th percentile are reported, with the share of hours with an error above 5%.
+10. The findings describe associations and make no causal claims. Each question is tested within years and within countries before it is final.
+
+## Part 5: The typed long table
+
+### Decision 9: Build a typed long table with one row for each hour and measure
+
+- **Found:** The raw table has one row for each hour and 298 measure columns, all stored as text, and the country is part of each column name. A query cannot group by country while the country is inside a column name.
+- **Decided:** A second table, time_series_hourly_long, was built from the raw table with a SQL script (sql/05_build_long_table.sql). It has one row for each hour and measure, with the columns utc_timestamp (a timestamp), area_code, measure_type, measure_name and reading (a number). The area code and measure type are taken from the column name. Blank cells are dropped, so the table holds only filled readings. The table is clustered by measure_type and area_code. The raw table is not changed.
+- **Why:** The long layout allows grouping by country, by measure type and by year in a single query. Typing the timestamps and readings here, and not in the raw layer, keeps the raw table as loaded. Dropping blanks is safe because blanks were confirmed to be NULL values only (Decision 4).
+- **Limit:** The long table is much larger than the wide one when counted in logical bytes, because every row repeats the text labels (Table 5.2). Queries must select only the columns they need and filter on measure_type and area_code, and the estimate shown before each run is read every time. The table expires on 17 January 2027, so the script in the sql folder is the lasting record.
+
+Table 5.1: The long table checked against the raw table (sql/06_validate_long_table.sql)
+
+| Check | Expected | Result | Difference |
+| --- | --- | --- | --- |
+| Filled cells in the raw table compared with rows in the long table | 13,686,403 | 13,686,403 | 0 |
+| Readings that failed to convert to a number | 0 | 0 | 0 |
+| Timestamps that failed to convert | 0 | 0 | 0 |
+| Rows missing an area code or measure type | 0 | 0 | 0 |
+| Distinct measures | 298 | 298 | 0 |
+| First hour (UTC) | 2014-12-31 23:00:00 | 2014-12-31 23:00:00 | |
+| Last hour (UTC) | 2020-09-30 23:00:00 | 2020-09-30 23:00:00 | |
+
+Table 5.2: Size of the long table and of the grid it came from
+
+| Measure | Value |
+| --- | --- |
+| Rows in the long table | 13,686,403 |
+| Cells in a full grid (298 measures by 50,401 hours) | 15,019,498 |
+| Blank cells dropped | 1,333,095 |
+| Share of the full grid that holds a reading | 91.1% |
+| Logical size of the long table (the basis for on-demand cost) | 1.09 GB |
+| Stored (physical) size of the long table | 73.19 MB |
+| Logical size of the raw table, for comparison | 136.12 MB |
+
+### Decision 10: Use the file's local time column for questions about the hour of the day
+
+- **Found:** The file holds a local time column (cet_cest_timestamp) written with an offset from UTC. The offset is written without a colon (for example +0100), and the column is stored as text. As a check, the local time was derived from the UTC time with the Europe/Berlin time zone, and compared with the first 19 characters of the file's local time (sql/07_check_local_time.sql). All 50,401 hours match (Table 5.3).
+- **Decided:** Questions about the hour of the day and the day of the week (business question 2) use the local time derived from UTC with the Europe/Berlin time zone. All other questions use UTC.
+- **Why:** The hour of the day means the same clock only for countries in the same time zone, and the derived local time handles the change between winter and summer time.
+- **Limit:** The check compares the date and time of day and does not test the offset part of the text. Countries outside Central European Time are not compared by local hour of the day.
+
+Table 5.3: Local time check
+
+| Check | Hours | Mismatches |
+| --- | --- | --- |
+| Local time derived from UTC compared with the file's local time | 50,401 | 0 |
