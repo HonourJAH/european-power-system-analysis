@@ -293,3 +293,30 @@ Table 6.4: The suspect hours table
 | Inside an episode and not flagged | 19 |
 | Episodes | 67 |
 | Countries | 12 |
+
+## Part 7: Business question 1
+
+### Decision 14: Answer business question 1 with yearly means for January to September
+
+- **Found:** The query sql/analysis/q01_electricity_demand_by_country_and_year.sql gives each country's mean load for each year. Three series show a one-year step that is not matched by their neighbours: the Netherlands rises 16.2% from 2015 to 2016, Great Britain falls 7.4% from 2016 to 2017, and Switzerland rises 7.6% from 2015 to 2016 (Table 7.3 in the findings).
+- **Decided:** Every year is measured over January to September, so 2020 (which ends on 30 September) is compared with the same months of the earlier years. The 208 suspect hours from Decision 13 are left out, and 161 of them fall in these months (Table 7.1). A country-year is shown only if at least 90% of the hours in that window have a valid reading. Serbia in 2015, Cyprus in every year except 2017 and 2018, and Ukraine in 2015 to 2017 do not meet it. The question is answered at yearly level, as it was asked. A monthly check of the three steps was considered and not done.
+- **Why:** The question asks about yearly figures, and a monthly view of three countries is beyond it. Reporting the steps as unexplained is more honest than guessing their cause.
+- **Limit:** Rule 3 of Decision 8 says that the spring of 2020 is reported separately. That was not done, so the 2020 figures include the spring months, and no statement about a trend is made from them. Rule 10 says that each question is tested within years and within countries. The test was not run for the three steps, and their cause is not known. They may be a change in what the series measures and not a change in demand, and I did not confirm either.
+
+Table 7.1: Suspect hours left out of the January to September window
+
+| Country | Suspect hours left out |
+| --- | --- |
+| LU | 73 |
+| CH | 45 |
+| GB_UKM | 19 |
+| SK | 7 |
+| ME | 5 |
+| NO | 4 |
+| DK | 3 |
+| CY | 2 |
+| EE | 1 |
+| FR | 1 |
+| SI | 1 |
+| Other 21 countries | 0 |
+| Total | 161 |
