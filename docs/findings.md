@@ -90,10 +90,10 @@ Table 1.4: Suspect hours left out of the January to September window
 | Other 21 countries | 0 |
 | Total | 161 |
 
-- In 2019, the five countries with the highest mean load were Germany (55,786.3 MW), France (52,257.2 MW), Great Britain (34,324.6 MW), Italy (34,086.2 MW) and Spain (28,722.9 MW). The lowest among countries with a 2019 figure were Montenegro (391.5 MW), Luxembourg (458.0 MW) and Latvia (816.5 MW) (Table 1.1).
-- From 2015 to 2019, mean load rose in 22 of the 29 countries with both figures, by up to 16.6% in the Netherlands and 16.4% in Lithuania. It fell in Great Britain (-9.1%), Luxembourg (-4.8%), Belgium (-4.2%), France (-1.3%) and Bulgaria (-0.1%). Demand did not move in one direction across Europe (Table 1.1).
+- In 2019, the five countries with the highest mean load were Germany (55,786.3 MW), France (52,257.2 MW), United Kingdom (34,324.6 MW), Italy (34,086.2 MW) and Spain (28,722.9 MW). The lowest among countries with a 2019 figure were Montenegro (391.5 MW), Luxembourg (458.0 MW) and Latvia (816.5 MW) (Table 1.1).
+- From 2015 to 2019, mean load rose in 24 of the 29 countries with both figures, by up to 16.6% in the Netherlands and 16.4% in Lithuania. It fell in United Kingdom (-9.1%), Luxembourg (-4.8%), Belgium (-4.2%), France (-1.3%) and Bulgaria (-0.1%). Demand did not move in one direction across Europe (Table 1.1).
 - From January to September 2019 to the same months of 2020, mean load fell in 27 of the 31 countries with both figures, by between 2.2% and 10.2%. It rose in Switzerland (+5.1%), Denmark (+1.6%), Norway (+0.8%) and Ireland (+0.1%) (Tables 1.1 and 1.2).
-- Three series show a one-year step that their neighbours do not show: the Netherlands rose 16.2% from 2015 to 2016 and then stayed near 12,800 MW, Great Britain fell 7.4% from 2016 to 2017 and then stayed lower, and Switzerland rose 7.6% from 2015 to 2016 (Table 1.3). These changes account for most of the 2015 to 2019 change in these three countries, and the data does not say whether they reflect demand or a change in what the series measures.
+- Three series show a one-year step that their neighbours do not show: the Netherlands rose 16.2% from 2015 to 2016 and then stayed near 12,800 MW, the United Kingdom fell 7.4% from 2016 to 2017 and then stayed lower, and Switzerland rose 7.6% from 2015 to 2016 and then drifted back (Table 1.3). In the Netherlands (+16.6%) and the United Kingdom (-9.1%) the step accounts for most of the 2015 to 2019 change, and in Switzerland the mean was 3.6% above 2015 by 2019. The data does not say whether these steps reflect demand or a change in what the series measures.
 - Cyprus has figures for two years only (2017 and 2018), Ukraine for three (2018 to 2020), and Serbia for five (2016 to 2020), because the other years do not meet the coverage rule (Table 1.1).
 - 161 suspect hours were left out of the window, 73 of them in Luxembourg and 45 in Switzerland. They change no country's mean by more than 49 MW (Table 1.4 and Decision 12).
 
@@ -101,7 +101,7 @@ Table 1.4: Suspect hours left out of the January to September window
 
 Demand differs greatly in size, from about 390 MW in Montenegro to about 55,800 MW in Germany, and a country's size accounts for most of the differences between countries. Year to year, most countries moved by a few percent, without a common direction before 2020. In the first nine months of 2020, nearly all countries used less electricity than in the same months of 2019, which is consistent with the reduced economic activity in spring 2020, though this question does not test that.
 
-For a reader who uses the figures, the Netherlands, Great Britain and Switzerland need care before their year-to-year changes are used as measures of demand.
+For a reader who uses the figures, the Netherlands, United Kingdom and Switzerland need care before their year-to-year changes are used as measures of demand.
 
 ### Limitations
 
