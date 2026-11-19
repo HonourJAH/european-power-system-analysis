@@ -214,3 +214,82 @@ Table 5.3: Local time check
 | Check | Hours | Mismatches |
 | --- | --- | --- |
 | Local time derived from UTC compared with the file's local time | 50,401 | 0 |
+
+## Part 6: Coverage and extreme load hours
+
+### Decision 11: Apply the coverage rule to the 32 country load totals
+
+- **Found:** The query sql/08_check_country_load_coverage.sql compared each country's filled actual-load hours with the hours in each calendar year from 2015 to 2020 (the 2014 hour is left out, rule 2). 26 countries have at least 50,000 filled hours and at least 90% coverage in all six years. Four countries have at least 90% coverage in every year but fall 163 to 383 hours short of 50,000 hours. Two countries have no readings in the first years (Table 6.1).
+- **Decided:** Rule 4 from Decision 8 is applied as it was written. The 26 countries enter the whole-period figures and every year-by-year comparison. The four near-misses enter every year-by-year comparison and are left out of whole-period figures. Ukraine enters comparisons for 2018 to 2020, and Cyprus for 2017 and 2018.
+- **Why:** The rule was fixed before any result was looked at. Changing it because four countries narrowly miss it would fit the rule to the data.
+- **Limit:** I do not know why the gaps occur. Serbia's 2015 coverage (91.2%) is just above the 90% line.
+
+Table 6.1: Countries by coverage of actual load, 2015 to 2020
+
+| Group | Countries | Filled hours | Share of the 50,400 hours |
+| --- | --- | --- | --- |
+| Meets the whole-period rule and the yearly rule | 26 (AT, BE, BG, CH, CZ, DE, DK, EE, ES, FI, FR, GB_UKM, GR, HR, HU, IT, LT, LV, NL, NO, PL, PT, RO, SE, SI, SK) | 50,207 to 50,400 | 99.6% to 100.0% |
+| Yearly rule only | IE | 49,837 | 98.9% |
+| Yearly rule only | LU | 49,738 | 98.7% |
+| Yearly rule only | ME | 49,662 | 98.5% |
+| Yearly rule only | RS | 49,617 | 98.4% |
+| Some years only | UA | 25,635 | 50.9% |
+| Some years only | CY | 32,931 | 65.3% |
+
+### Decision 12: Screen the load data for extreme hours
+
+- **Found:** The mean load for each of the 26 countries (sql/09) has a lowest or highest hour that is far from the country's typical level. Slovakia has an hour of 2,170,811 MW against a mean of 3,336.8 MW, France has a peak of 158,000 MW against a mean of 53,249.7 MW, and Austria, Great Britain and Slovenia have lowest hours of 664 MW, 1,183 MW and 24.2 MW against means of 7,070.1 MW, 35,834.9 MW and 1,462.7 MW.
+- **Decided:** An hour is flagged when the load is above twice, or below a quarter of, the country's median load (sql/10). Flagged hours less than 13 hours apart are grouped into one episode (sql/12). The 26 qualifying countries have 111 flagged hours (Table 6.2). All 32 countries have 189 flagged hours in 67 episodes (Table 6.3).
+- **Why:** The screen finds hours that are far outside a country's normal range, so they can be examined before any hour-level statistic is computed. The effect on the whole-period means is small: the largest change is 48.4 MW for Slovakia (1.5% of its mean), and every other country changes by less than 17 MW.
+- **Limit:** The twice-the-median, quarter-of-the-median and 12-hour limits were chosen after the extreme hours had been seen, so they were not fixed in advance. They are a screen for errors and do not prove that an hour is wrong. The median is approximate. The screen cuts some episodes short: the hour before Austria's third episode reads 1,840 MW (26% of the median) and was not flagged. Most flagged hours are in multi-hour episodes (Table 6.3), which suggests stretches of bad data in the source. I did not find the cause of any episode.
+
+Table 6.2: Flagged hours in the 26 qualifying countries
+
+| Country | Flagged hours | Above twice the median | Below a quarter of the median | Change in the mean when the flagged hours are left out (MW) |
+| --- | --- | --- | --- | --- |
+| CH | 36 | 27 | 9 | 3.7 |
+| GB_UKM | 26 | 0 | 26 | -16.8 |
+| AT | 25 | 0 | 25 | -2.9 |
+| SK | 12 | 12 | 0 | 48.4 |
+| NO | 5 | 5 | 0 | 1.6 |
+| DK | 4 | 4 | 0 | 0.4 |
+| EE | 1 | 0 | 1 | 0.0 |
+| FR | 1 | 1 | 0 | 2.1 |
+| SI | 1 | 0 | 1 | -0.0 |
+| Other 17 countries | 0 | 0 | 0 | 0.0 |
+| Total | 111 | 49 | 62 | |
+
+Table 6.3: Episodes of flagged hours in all 32 country totals
+
+| Country | Episodes | Flagged hours | Hours from the first to the last flagged hour of each episode |
+| --- | --- | --- | --- |
+| LU | 34 | 69 | 75 |
+| GB_UKM | 9 | 26 | 26 |
+| ME | 6 | 7 | 8 |
+| DK | 4 | 4 | 4 |
+| AT | 3 | 25 | 25 |
+| SK | 3 | 12 | 15 |
+| CH | 2 | 36 | 45 |
+| NO | 2 | 5 | 5 |
+| CY | 1 | 2 | 2 |
+| EE | 1 | 1 | 1 |
+| FR | 1 | 1 | 1 |
+| SI | 1 | 1 | 1 |
+| Total | 67 | 189 | 208 |
+
+### Decision 13: Flag the suspect hours and leave them out of the analysis
+
+- **Found:** In the 26 qualifying countries, 99 of the 111 flagged hours (89.2%) are in multi-hour episodes. Nine hours inside Switzerland's episodes, three inside Slovakia's, and six and one inside Luxembourg's and Montenegro's, lie between the first and last flagged hour of an episode without being flagged themselves (Table 6.4).
+- **Decided:** A table, suspect_load_hours, holds every load hour from the first to the last flagged hour of each episode, with a column that shows whether the screen flagged the hour itself (sql/13). The raw table and the long table are not changed. Business questions 1 to 5 leave these hours out of their calculations, and each reports how many hours were left out.
+- **Why:** Flagging and not deleting keeps the source data intact, as in the raw, flagged and clean layers of the first project. Leaving the hours out matters most for statistics that depend on single hours, such as peaks, daily shapes and forecast errors.
+- **Limit:** The exclusion is a minimum. Bad hours just outside an episode, such as Austria's 1,840 MW hour, stay in the data, and so do any bad hours that the screen did not catch. The table expires 60 days after it was created, so sql/13 is the lasting record.
+
+Table 6.4: The suspect hours table
+
+| Measure | Value |
+| --- | --- |
+| Suspect hours | 208 |
+| Flagged by the screen | 189 |
+| Inside an episode and not flagged | 19 |
+| Episodes | 67 |
+| Countries | 12 |
