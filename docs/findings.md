@@ -267,3 +267,141 @@ Two things need care. In five countries the peak hour changed during 2015 to 201
 - Peaks and lows are averages across many days. A single day can look quite different.
 - 208 suspect hours were left out, and bad hours that the screen did not catch may remain (Decision 13).
 - The data in the source comes from the ENTSO-E Transparency Platform and each country's transmission system operator, and their terms apply (Decision 1).
+
+## Business question 3: How much of demand is met by wind and solar generation, and how does the share change by year, season and country?
+
+### Findings
+
+The share of a period is the mean wind generation plus the mean solar generation, divided by the mean load, over the hours in which all three are filled (Decision 20). Wind is the total wind column for Belgium, Germany, Denmark, the United Kingdom and the Netherlands, and the onshore wind column for every other country, because the total wind column already contains onshore and offshore wind (Decision 18). Hours that look like errors in the load data are left out (Decision 13). Years are January to September. A period is shown only if at least 90% of its hours are matched, and the whole period needs at least 50,000 matched hours (Decision 19). Other cells show "n/a". A share describes average generation against average demand and does not show that the electricity was used when it was produced.
+
+Table 3.1: Whole-period share of demand met by wind and solar, 2015 to 2020
+
+| Country | Matched hours | Wind | Solar | Wind and solar combined |
+| --- | --- | --- | --- | --- |
+| Denmark | 50,385 | 43.3% | 2.8% | 46.0% |
+| Germany | 50,295 | 20.8% | 8.2% | 29.1% |
+| Spain | 50,373 | 19.6% | 5.7% | 25.2% |
+| United Kingdom | 50,103 | 13.2% | 3.3% | 16.6% |
+| Greece | 50,323 | 9.4% | 7.2% | 16.6% |
+| Romania | 50,254 | 11.3% | 2.3% | 13.6% |
+| Austria | 50,314 | 10.3% | 1.9% | 12.2% |
+| Estonia | 50,308 | 8.2% | 0.1% | 8.3% |
+| France | 50,349 | 5.5% | 2.1% | 7.6% |
+| Bulgaria | 50,322 | 3.6% | 3.6% | 7.2% |
+| Czechia | 50,258 | 0.9% | 3.5% | 4.4% |
+| Slovenia | 50,313 | 0.0% | 2.2% | 2.2% |
+| Belgium | 46,453 | n/a | n/a | n/a |
+| Lithuania | 49,472 | n/a | n/a | n/a |
+| Switzerland | 49,560 | n/a | n/a | n/a |
+| Italy | 41,648 | n/a | n/a | n/a |
+| Netherlands | 43,386 | n/a | n/a | n/a |
+
+Table 3.2: Combined share by year, January to September
+
+| Country | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Austria | 10.3% | 9.9% | 12.1% | 11.8% | 14.9% | 14.9% |
+| Belgium | 9.5% | 9.6% | 9.7% | 11.6% | 14.0% | 19.6% |
+| Bulgaria | 7.9% | 7.5% | 7.5% | 6.9% | 7.3% | 8.5% |
+| Czechia | 5.2% | 4.7% | 4.7% | 5.0% | 5.0% | 5.2% |
+| Denmark | 42.9% | 36.8% | 44.5% | 43.1% | 50.5% | 53.6% |
+| Estonia | 7.8% | 6.0% | 8.0% | 7.1% | 8.4% | 11.5% |
+| France | 5.7% | 6.2% | 6.7% | 7.7% | 9.3% | 11.8% |
+| Germany | 23.1% | 23.6% | 26.8% | 29.7% | 34.0% | 38.6% |
+| Greece | 14.2% | 15.0% | 15.2% | 16.3% | 18.5% | 23.0% |
+| Italy | n/a | 13.2% | 13.3% | 12.4% | 13.8% | 15.5% |
+| Lithuania | 6.7% | 7.9% | 9.8% | 9.9% | 12.0% | 13.3% |
+| Netherlands | n/a | 8.5% | 10.5% | 12.0% | n/a | 6.9% |
+| Romania | 14.1% | 12.7% | 14.7% | 12.4% | 13.3% | 15.0% |
+| Slovenia | 2.7% | 2.9% | 2.6% | 2.2% | 2.2% | 2.6% |
+| Spain | 25.4% | 26.1% | 23.9% | 24.0% | 25.8% | 29.9% |
+| Switzerland | 0.5% | 0.8% | 1.0% | 0.8% | 1.0% | n/a |
+| United Kingdom | 11.6% | 12.8% | 16.0% | 17.2% | 18.9% | 24.4% |
+
+Table 3.3: Combined share by season
+
+| Country | Winter, 2015 to 2020 | Summer, 2015 to 2020 | Spring, 2015 to 2019 | Spring, 2020 |
+| --- | --- | --- | --- | --- |
+| Austria | 11.6% | 10.9% | 13.9% | 17.5% |
+| Belgium | 10.7% | n/a | 11.2% | 21.5% |
+| Bulgaria | 5.8% | 8.4% | 8.0% | 9.5% |
+| Czechia | 2.4% | 6.4% | 5.4% | 6.4% |
+| Denmark | 49.3% | 41.1% | 45.1% | 54.0% |
+| Estonia | 8.9% | 7.4% | 7.1% | 11.6% |
+| France | 6.8% | 8.1% | 7.5% | 12.8% |
+| Germany | 29.4% | 27.8% | 29.7% | 41.5% |
+| Greece | 14.2% | 17.1% | 17.2% | 25.0% |
+| Italy | n/a | n/a | n/a | 18.5% |
+| Lithuania | 11.2% | 8.5% | 10.0% | 14.5% |
+| Netherlands | n/a | 7.7% | n/a | 6.5% |
+| Romania | 14.4% | 11.4% | 14.8% | 19.3% |
+| Slovenia | 1.0% | 3.5% | 2.7% | 3.0% |
+| Spain | 26.5% | 23.2% | 28.6% | 33.3% |
+| Switzerland | 0.6% | 2.2% | 0.9% | 5.8% |
+| United Kingdom | 15.9% | 16.6% | 15.3% | 24.3% |
+
+Table 3.4: Changes in the combined share, in percentage points
+
+| Country | 2019 against 2015 | Jan to Sep 2020 against 2019 | Spring 2020 against spring 2015 to 2019 |
+| --- | --- | --- | --- |
+| Austria | +4.6 | 0.0 | +3.6 |
+| Belgium | +4.5 | +5.6 | +10.3 |
+| Bulgaria | -0.6 | +1.2 | +1.5 |
+| Czechia | -0.2 | +0.2 | +1.0 |
+| Denmark | +7.6 | +3.1 | +8.9 |
+| Estonia | +0.6 | +3.1 | +4.5 |
+| France | +3.6 | +2.5 | +5.3 |
+| Germany | +10.9 | +4.6 | +11.8 |
+| Greece | +4.3 | +4.5 | +7.8 |
+| Italy | n/a | +1.7 | n/a |
+| Lithuania | +5.3 | +1.3 | +4.5 |
+| Netherlands | n/a | n/a | n/a |
+| Romania | -0.8 | +1.7 | +4.5 |
+| Slovenia | -0.5 | +0.4 | +0.3 |
+| Spain | +0.4 | +4.1 | +4.7 |
+| Switzerland | +0.5 | n/a | +4.9 |
+| United Kingdom | +7.3 | +5.5 | +9.0 |
+
+Table 3.5: How many countries show each pattern (tallied from Tables 3.1 to 3.4)
+
+| Pattern | Countries |
+| --- | --- |
+| Meet the whole-period rule | 12 of 17 |
+| Wind share larger than solar share | 9 of 12 |
+| Solar share larger than wind share | 2 of 12 |
+| Wind and solar shares equal | 1 of 12 |
+| Share in 2019 higher than in 2015 | 11 of 15 |
+| Share in 2019 lower than in 2015 | 4 of 15 |
+| Share in January to September 2020 higher than in 2019 | 14 of 15 |
+| Share in January to September 2020 equal to 2019 | 1 of 15 |
+| Spring 2020 higher than spring 2015 to 2019 | 15 of 15 |
+| Winter share higher than summer share | 7 of 14 |
+| Summer share higher than winter share | 7 of 14 |
+
+- Over 2015 to 2020, wind and solar together met 46.0% of demand in Denmark, 29.1% in Germany and 25.2% in Spain, and 2.2% in Slovenia, 4.4% in Czechia and 7.2% in Bulgaria (Table 3.1).
+- Wind provided the larger share in 9 of the 12 countries, and solar in 2 (Czechia and Slovenia). In Denmark wind alone was 43.3% (Tables 3.1 and 3.5).
+- Between 2015 and 2019 the share rose in 11 of the 15 countries with both years, by up to 10.9 percentage points in Germany, 7.6 in Denmark and 7.3 in the United Kingdom. It fell slightly in Bulgaria, Czechia, Romania and Slovenia (Tables 3.2, 3.4 and 3.5).
+- In January to September 2020 the share was higher than in 2019 in 14 of the 15 countries with both years, and the same in Austria. The largest rises were in Belgium (+5.6 points), the United Kingdom (+5.5), Germany (+4.6) and Greece (+4.5) (Tables 3.4 and 3.5).
+- Spring 2020 had a higher share than spring 2015 to 2019 in all 15 countries with both, by up to 11.8 points in Germany, 10.3 in Belgium and 9.0 in the United Kingdom (Tables 3.4 and 3.5).
+- The seasonal pattern differs by country. Of the 14 countries with a winter and a summer share, 7 had a higher share in winter and 7 in summer. Denmark was 8.2 points higher in winter (49.3% against 41.1%), and Czechia was 4.0 points higher in summer (6.4% against 2.4%) (Tables 3.3 and 3.5).
+- Switzerland and the Netherlands show patterns that I could not explain. Switzerland's spring 2020 share (5.8%) is far above its spring 2015 to 2019 share (0.9%), and the Netherlands' 2020 share (6.9%) is below its 2018 share (12.0%) while most countries rose (Tables 3.2 and 3.3).
+- Five countries have no whole-period share (Belgium, Lithuania, Switzerland, Italy and the Netherlands) because they have fewer than 50,000 matched hours, and 15 more are left out because they report no solar or too few wind or solar readings (Decision 19). Table 3.1 lists the first five.
+
+### What this means
+
+Wind and solar meet a large share of demand in a few countries, led by Denmark, and a small share in most. In most countries the share rose between 2015 and 2019, and rose further in 2020. The seasons do not give a common picture: the share is higher in winter in some countries and in summer in others.
+
+The 2020 rise needs care. The share is generation divided by demand, and demand fell in 2020 (business question 1), so the share rises when demand falls even if generation does not move. The figures show that the share rose, and do not show that generation grew.
+
+### Limitations
+
+- These are associations. The data does not show why a country's share is higher or lower.
+- The share compares average generation with average demand. It does not show that wind and solar electricity was used when it was produced, because imports, exports and storage are not in the data.
+- The 2020 and spring 2020 shares are affected by the fall in demand during the pandemic.
+- Wind uses the total column for five countries and the onshore column for the others. A country with offshore wind but no offshore column would be understated, and I do not know which (Decision 18).
+- A blank reading is taken to mean that no value was stored, not that generation was zero. A country that reports no solar may still have solar generation, and 15 countries are left out for this reason or because of low coverage (Decision 19).
+- The generation readings were not screened for extreme hours, and Slovenia's wind readings are close to zero.
+- Seasons cover 2015 to 2020, so a country with no readings in an early year shows n/a for them.
+- Switzerland and the Netherlands show patterns that I could not explain.
+- The data ends on 30 September 2020, so every year uses January to September only.
+- The primary data comes from the ENTSO-E Transparency Platform and each country's transmission system operator, and their terms apply (Decision 1).

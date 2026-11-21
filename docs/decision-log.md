@@ -368,3 +368,80 @@ Table 8.3: Coverage of the periods used in business question 2
 | Summer, 2015 to 2020 | 13,248 | 13,090 | ME | 98.8% |
 | Spring, 2015 to 2019 | 11,035 | 10,929 | LU | 99.0% |
 | Spring, 2020 | 2,207 | 1,703 | ME | 77.2% |
+
+## Part 9: Business question 3
+
+### Decision 18: Choose the wind measure for each country
+
+- **Found:** Twelve areas have a total wind column (wind_generation_actual) as well as onshore and offshore columns. In the hours where all three are filled, the total equals the sum of the two parts to within 0.3 MW on average and 69 MW at most (Table 9.1). Six of the twelve are country totals: BE, DE, DK, GB_UKM, NL and PT. The other country totals have an onshore column and no offshore column.
+- **Decided:** For BE, DE, DK, GB_UKM, NL and PT, the wind measure is the total column. For every other country, it is the onshore column. The total and the parts are never added together. Sub-areas are not used for country comparisons.
+- **Why:** The total already contains its parts, so adding them would count the same wind twice.
+- **Limit:** A country that has offshore wind but reports no offshore column would have its wind understated, and I do not know which countries those are. In Belgium and the Netherlands the total has fewer filled hours than onshore, so hours without a total are left out. The check covers hours from 2015 on, and the gap column in Table 9.1 compares the total with its parts only in hours where all three are filled.
+
+Table 9.1: Wind total compared with onshore plus offshore wind
+
+| Area | Hours with a total | Hours with the total and both parts | Mean gap, total against parts (MW) | Largest gap (MW) | Mean wind total (MW) |
+| --- | --- | --- | --- | --- | --- |
+| BE | 46,466 | 46,466 | 0.0 | 0.0 | 779.9 |
+| DE | 50,326 | 50,326 | 0.3 | 69.0 | 11,552.2 |
+| DE_50hertz | 50,400 | 50,400 | 0.2 | 1.0 | 3,724.3 |
+| DE_LU | 17,546 | 17,546 | 0.2 | 1.0 | 14,371.9 |
+| DE_tennet | 50,400 | 50,400 | 0.3 | 1.0 | 5,725.3 |
+| DK | 50,398 | 50,398 | 0.0 | 0.0 | 1,629.0 |
+| DK_1 | 50,398 | 50,398 | 0.0 | 0.0 | 1,293.4 |
+| DK_2 | 50,398 | 50,398 | 0.0 | 0.0 | 335.6 |
+| GB_GBN | 50,360 | 50,360 | 0.3 | 1.0 | 4,512.8 |
+| GB_UKM | 50,272 | 50,272 | 0.2 | 10.0 | 4,749.8 |
+| NL | 48,434 | 48,434 | 0.2 | 1.0 | 986.7 |
+| PT | 2,892 | 2,892 | 0.0 | 0.0 | 1,082.7 |
+
+### Decision 19: Apply the coverage rule to solar and wind generation
+
+- **Found:** The query sql/19_check_generation_coverage_by_country.sql counts, for each country and year, the hours with a solar reading and with a wind reading (the wind measure from Decision 18), against the hours in the year. 14 countries have both at 90% or more in all six years. Of these, 12 have at least 50,000 filled hours for both, and Belgium (46,466 wind hours) and Lithuania (49,567 solar hours) do not. Italy and Switzerland have both in five years, the Netherlands in four, and Hungary and Slovakia in one. 13 countries have no year with both, most of them because they report no solar (Table 9.2).
+- **Decided:** Rule 4 of Decision 8 is applied as written. The 12 countries enter the whole-period shares and every year-by-year comparison. Belgium and Lithuania enter year-by-year comparisons only. Italy, Switzerland and the Netherlands enter the years in which both measures meet the rule. The other 15 countries are left out of the share and named in the findings. Portugal is among them, because its wind total covers only 2,892 hours and Decision 18 fixed the total for Portugal before its coverage was seen.
+- **Why:** A share of demand can only be compared between countries that report both sources in the same hours. Changing the wind rule for Portugal after seeing the result would fit the rule to the data.
+- **Limit:** A blank reading is taken to mean that no value was stored, not that generation was zero. A country that reports no solar may still have solar generation. Portugal's onshore wind coverage was not checked. The generation readings were not screened for extreme hours. The coverage check counts solar and wind hours separately, and the share query requires hours where load, solar and wind are all filled, so a country can have fewer matching hours than shown here.
+
+Table 9.2: Coverage of solar and wind generation, 2015 to 2020
+
+| Country | Wind measure used | Solar hours | Wind hours | Years with both at 90% or more |
+| --- | --- | --- | --- | --- |
+| Austria | Onshore | 50,339 | 50,352 | 6 |
+| Belgium | Total | 50,385 | 46,466 | 6 |
+| Bulgaria | Onshore | 50,384 | 50,398 | 6 |
+| Czechia | Onshore | 50,365 | 50,385 | 6 |
+| Denmark | Total | 50,389 | 50,398 | 6 |
+| Estonia | Onshore | 50,314 | 50,323 | 6 |
+| France | Onshore | 50,386 | 50,393 | 6 |
+| Germany | Total | 50,297 | 50,326 | 6 |
+| Greece | Onshore | 50,353 | 50,365 | 6 |
+| Lithuania | Onshore | 49,567 | 49,590 | 6 |
+| Romania | Onshore | 50,269 | 50,285 | 6 |
+| Slovenia | Onshore | 50,391 | 50,379 | 6 |
+| Spain | Onshore | 50,384 | 50,384 | 6 |
+| United Kingdom | Total | 50,346 | 50,272 | 6 |
+| Italy | Onshore | 43,801 | 41,655 | 5 |
+| Switzerland | Onshore | 50,345 | 49,605 | 5 |
+| Netherlands | Total | 45,346 | 48,434 | 4 |
+| Hungary | Onshore | 8,965 | 48,543 | 1 |
+| Slovakia | Onshore | 50,010 | 9,679 | 1 |
+| Croatia | Onshore | 10 | 22 | 0 |
+| Cyprus | Onshore | 0 | 43,103 | 0 |
+| Finland | Onshore | 0 | 50,388 | 0 |
+| Ireland | Onshore | 0 | 50,369 | 0 |
+| Latvia | Onshore | 0 | 50,333 | 0 |
+| Luxembourg | Onshore | 0 | 0 | 0 |
+| Montenegro | Onshore | 0 | 20,460 | 0 |
+| Norway | Onshore | 0 | 50,246 | 0 |
+| Poland | Onshore | 4,164 | 50,398 | 0 |
+| Portugal | Total | 50,355 | 2,892 | 0 |
+| Serbia | Onshore | 0 | 0 | 0 |
+| Sweden | Onshore | 0 | 50,303 | 0 |
+| Ukraine | Onshore | 0 | 0 | 0 |
+
+### Decision 20: Define the wind and solar share of demand
+
+- **Found:** Business question 3 asks what share of demand is met by wind and solar generation, and how it changes by year, season and country. Generation and load are hourly readings in MW from different columns, and not every country has all three in every hour.
+- **Decided:** The share of a period is the mean wind generation plus the mean solar generation, divided by the mean load, over the hours in which load, solar and wind are all filled (sql/analysis/q03_wind_and_solar_share_of_demand.sql). The suspect load hours of Decision 13 are left out. A period shows a share only if at least 90% of its hours are matched, and the whole period needs at least 50,000 matched hours (rule 4 of Decision 8). Years are January to September of each year. Winter, summer and spring are defined as in Decision 16. The 17 countries from Decision 19 that have at least four years with both measures are included. These choices were made before any share was seen.
+- **Why:** A ratio of means over the same hours compares like with like, and the coverage rule keeps countries with gaps from being compared with countries without them.
+- **Limit:** The share compares average generation with average demand. It does not show that the electricity was used when it was produced, because imports, exports and storage are not in the data. The share rises when demand falls even if generation does not change, which matters for 2020. Seasons span 2015 to 2020, so a country with no readings in an early year shows n/a for them. The generation readings were not screened for extreme hours. The shares for the Netherlands and Switzerland have patterns that I could not explain (Table 3.2 in the findings).
