@@ -320,3 +320,51 @@ Table 7.1: Suspect hours left out of the January to September window
 | SI | 1 |
 | Other 21 countries | 0 |
 | Total | 161 |
+
+## Part 8: Business question 2
+
+### Decision 15: Add a table of country names
+
+- **Found:** The area codes are two-letter codes that are hard to read in a result. Adding the name to the long table would repeat the text in every row of 13.7 million and raise its logical size, which is the basis for on-demand cost.
+- **Decided:** A table of 32 rows, country_names, was built from sql/15_build_country_names_table.sql. It pairs each country total code with its name, and queries join it only in their last step. GB_UKM is named United Kingdom. The check in sql/16_check_country_names_table.sql found 32 names, 32 country totals in the data, and none without a name (Table 8.1).
+- **Why:** Names make every result readable without changing the large table.
+- **Limit:** The names were typed by hand. GB_UKM includes Northern Ireland, because in the hours where all three columns are filled it matches the sum of GB_GBN and GB_NIR (Table 3.1). The estimate for the check query was 108.89 MB, and I could not separate the share of the join.
+
+Table 8.1: Check of the country names table
+
+| Check | Expected | Result |
+| --- | --- | --- |
+| Names in the table | 32 | 32 |
+| Country totals in the data | 32 | 32 |
+| Country totals without a name | 0 | 0 |
+
+### Decision 16: Fix the rules for business question 2 before looking at any result
+
+- **Found:** Business question 2 asks about the hour of the day and the day of the week with the highest demand, and whether the daily shape changes between winter and summer and between years. The hour of the day means the same clock only for countries in one time zone (Decision 10).
+- **Decided:** The question uses the 19 countries on Central European Time that meet the coverage rule in every year of the January to September window used in business question 1: AT, BE, CH, CZ, DE, DK, ES, FR, HR, HU, IT, LU, ME, NL, NO, PL, SE, SI and SK (Table 8.2). Local time is derived from UTC with the Europe/Berlin time zone. Suspect hours are left out. The overall hour and weekday patterns use 2015 to 2019. Seasons are winter (January and February) and summer (June to August) for 2015 to 2020, and spring (March to May) is reported separately for 2020 against the earlier years. The peak hour is the local hour with the highest mean load, the lowest hour is the one with the lowest mean, and the peak-to-lowest ratio is the mean at the peak hour divided by the mean at the lowest hour. Countries are not averaged together.
+- **Why:** One clock makes the hour of the day comparable, five full years avoid giving any month more weight, and keeping the spring of 2020 apart follows rule 3 of Decision 8. These choices were made before any result was looked at.
+- **Limit:** The time zones were assigned from general knowledge and not from the data. Serbia is left out because of its 2015 coverage. Public holidays are not removed, and the data has no information on them. Summer 2020 may still show effects of the pandemic. Dividing the year into seasons this way leaves out September to December.
+
+Table 8.2: Countries by time zone
+
+| Time zone | Countries | Used in business question 2 |
+| --- | --- | --- |
+| Central European Time | AT, BE, CH, CZ, DE, DK, ES, FR, HR, HU, IT, LU, ME, NL, NO, PL, RS, SE, SI, SK | 19 (all but RS) |
+| Eastern European Time | BG, CY, EE, FI, GR, LT, LV, RO, UA | None |
+| Western European or Greenwich Time | GB_UKM, IE, PT | None |
+
+### Decision 17: Apply the coverage rule to the periods used in business question 2
+
+- **Found:** The seasons and years in sql/analysis/q02_daily_shape_by_season_and_year.sql have 8,543 (winter), 13,248 (summer), 11,035 (spring 2015 to 2019) and 2,207 (spring 2020) local hours in a country with no gaps (Germany). Every country and period has at least 96.5% of those hours, except Montenegro in spring 2020, which has 1,703 of 2,207 hours (77.2%) (Table 8.3).
+- **Decided:** Rule 4 of Decision 8 is applied to every period. Montenegro is left out of the spring 2020 comparison and shown as n/a. It stays in every other comparison.
+- **Why:** A figure built from 77% of the hours of a period cannot be compared with figures built from nearly all of them.
+- **Limit:** The same reading counts in a season and in a year, so the periods overlap. Winter is January and February only, and summer 2020 may still show effects of the pandemic. I do not know why Montenegro's spring 2020 has missing hours.
+
+Table 8.3: Coverage of the periods used in business question 2
+
+| Period | Hours in a country with no gaps | Lowest hours counted in any country | Country | Share of the full period |
+| --- | --- | --- | --- | --- |
+| Winter, 2015 to 2020 | 8,543 | 8,247 | LU | 96.5% |
+| Summer, 2015 to 2020 | 13,248 | 13,090 | ME | 98.8% |
+| Spring, 2015 to 2019 | 11,035 | 10,929 | LU | 99.0% |
+| Spring, 2020 | 2,207 | 1,703 | ME | 77.2% |
