@@ -445,3 +445,40 @@ Table 9.2: Coverage of solar and wind generation, 2015 to 2020
 - **Decided:** The share of a period is the mean wind generation plus the mean solar generation, divided by the mean load, over the hours in which load, solar and wind are all filled (sql/analysis/q03_wind_and_solar_share_of_demand.sql). The suspect load hours of Decision 13 are left out. A period shows a share only if at least 90% of its hours are matched, and the whole period needs at least 50,000 matched hours (rule 4 of Decision 8). Years are January to September of each year. Winter, summer and spring are defined as in Decision 16. The 17 countries from Decision 19 that have at least four years with both measures are included. These choices were made before any share was seen.
 - **Why:** A ratio of means over the same hours compares like with like, and the coverage rule keeps countries with gaps from being compared with countries without them.
 - **Limit:** The share compares average generation with average demand. It does not show that the electricity was used when it was produced, because imports, exports and storage are not in the data. The share rises when demand falls even if generation does not change, which matters for 2020. Seasons span 2015 to 2020, so a country with no readings in an early year shows n/a for them. The generation readings were not screened for extreme hours. The shares for the Netherlands and Switzerland have patterns that I could not explain (Table 3.2 in the findings).
+
+## Part 10: Business question 4
+
+### Decision 21: Fix the rules for business question 4 before looking at any result
+
+- **Found:** Business question 4 asks whether prices rise with demand and fall when wind and solar output is high, and whether this holds in each year. Day-ahead prices exist for 32 price zones that belong to 8 countries, and not for country totals (Decision 6).
+- **Decided:** The unit of analysis is the price zone. A zone is used only if price, load, solar and wind each have at least 40,000 filled hours from 2015 on under the same zone code (rule 8 of Decision 8, with generation read as solar and wind both, so that wind and solar output has a meaning). The wind measure is the total column for the zones that have one (DE_LU, DK_1, DK_2 and GB_GBN) and the onshore column for the other zones (Decision 18). Only hours in which price, load, solar and wind are all filled are used. Years are January to September. A zone-year is shown only if at least 90% of its hours are matched. For each zone and year, two correlations are reported: price with load, and price with wind plus solar generation, both in MW. Each is also reported after removing the zone's mean for each local hour of the day, so that the daily cycle in demand and prices is not counted as a relationship. For the whole period, the hours of each zone are also split into five equal groups by load, and separately by wind plus solar generation, and the mean price of each group is reported. Prices are in EUR as documented in the source README.
+- **Why:** The coverage rule keeps zones with few readings out of the comparison, and the hour-of-day adjustment separates a daily cycle from a relationship between demand and price. These choices were made before any result was looked at.
+- **Limit:** A day-ahead price is set the day before from forecasts, so its relationship with actual load and generation is indirect. The source README gives the price in EUR and the data does not confirm that it is per megawatt hour. The suspect-hour screen of Decision 12 was run on country totals only, so zone load and the price and generation readings have not been screened for extreme hours. A correlation measures how closely two series move together and does not show that one causes the other.
+
+### Decision 22: Apply the zone rule to the price zones
+
+- **Found:** The query sql/20_check_price_zone_coverage.sql counts the filled hours from 2015 on for price, load, solar and wind in each of the 32 price zones. Nine zones have at least 40,000 filled hours for all four measures (Table 10.1).
+- **Decided:** Rule 8 of Decision 8, as written in Decision 21, is applied. Business question 4 uses the nine zones, which belong to three countries: Denmark (DK_1 and DK_2), the United Kingdom (GB_GBN) and Italy (six zones). The other 23 zones are named in the findings with the measure that failed.
+- **Why:** A relationship between price, demand and generation can only be measured in zones that report all of them in the same hours.
+- **Limit:** Only three countries remain, and Italy's six zones are parts of one national market and are not independent. Austria fails because its price column has 32,845 filled hours, and I do not know why. The Norwegian and Swedish zones fail because they report no solar generation, and a blank reading is taken to mean that no value was stored.
+
+Table 10.1: Price zones that meet the rule
+
+| Zone | Price hours | Load hours | Solar hours | Wind hours |
+| --- | --- | --- | --- | --- |
+| DK_1 | 50,386 | 50,398 | 50,389 | 50,398 |
+| DK_2 | 50,386 | 50,398 | 50,385 | 50,398 |
+| GB_GBN | 50,290 | 50,394 | 50,346 | 50,360 |
+| IT_CNOR | 50,267 | 50,398 | 50,350 | 50,360 |
+| IT_CSUD | 50,267 | 50,398 | 50,351 | 50,366 |
+| IT_NORD | 50,265 | 50,398 | 50,359 | 50,341 |
+| IT_SARD | 50,267 | 50,398 | 50,350 | 50,366 |
+| IT_SICI | 50,267 | 50,398 | 50,351 | 50,220 |
+| IT_SUD | 50,267 | 50,398 | 50,351 | 50,366 |
+
+### Decision 23: Answer business question 4 with correlations and leave out the five-group comparison
+
+- **Found:** The query sql/analysis/q04_price_relationship_with_load_and_generation.sql gives, for each of the nine zones in Decision 22, the correlation of price with load and of price with wind plus solar generation, for the whole period and for each year (January to September), with and without the zone's mean for each local hour of the day removed. Every period meets the coverage rule (Tables 4.1 to 4.3 in the findings).
+- **Decided:** The question is answered with these correlations, which show the direction of each relationship and whether it holds in each year. The comparison of mean prices across five equal groups of hours, planned in Decision 21, was not run. Mean prices are not reported.
+- **Why:** The question asks about direction and consistency by year, which the correlations answer. Mean prices were left out because I did not confirm the currency of the Danish, British and Italian price columns.
+- **Limit:** The size of the effect on the price is not measured. A day-ahead price is set the day before from forecasts, so its relationship with actual load and generation is indirect. The load, price and generation readings of the zones were not screened for extreme hours, and zone load was not part of the screen in Decision 12. The nine zones are three markets, and Italy's six zones are parts of one market. Fuel prices, carbon prices and weather are not in the data.

@@ -405,3 +405,99 @@ The 2020 rise needs care. The share is generation divided by demand, and demand 
 - Switzerland and the Netherlands show patterns that I could not explain.
 - The data ends on 30 September 2020, so every year uses January to September only.
 - The primary data comes from the ENTSO-E Transparency Platform and each country's transmission system operator, and their terms apply (Decision 1).
+
+## Business question 4: Where day-ahead prices exist, do prices rise with demand and fall when wind and solar output is high, and does this hold in each year?
+
+### Findings
+
+Day-ahead prices exist for 32 price zones in 8 countries, and nine zones in three countries have price, load, solar and wind readings in at least 40,000 hours: DK_1 and DK_2 (Denmark), GB_GBN (the United Kingdom) and six Italian zones (Decision 22). The other 23 zones fail on at least one measure and are not used. Italy's six zones are parts of one national market, so the nine zones are three markets.
+
+For each zone, the relationship is measured as a correlation, which runs from -1 to +1. A positive value means that the two series tend to be high together, and a negative value means that one tends to be high when the other is low. Load is in MW, and generation is wind plus solar in MW. Only hours in which price, load, solar and wind are all filled are used. Each correlation is shown raw and adjusted. The adjusted value removes the zone's mean for each local hour of the day from both series, so that a daily cycle that both follow is not counted as a relationship (Decision 21). Years are January to September, and every period meets the coverage rule.
+
+Table 4.1: Whole-period relationships, 2015 to 2020
+
+| Zone | Matched hours | Price with load, raw | Price with load, adjusted | Price with wind and solar, raw | Price with wind and solar, adjusted | Hours at or below zero | Share of hours |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| DK_1 | 50,377 | 0.38 | 0.27 | -0.33 | -0.37 | 558 | 1.1% |
+| DK_2 | 50,373 | 0.38 | 0.23 | -0.27 | -0.32 | 362 | 0.7% |
+| GB_GBN | 50,247 | 0.38 | 0.22 | -0.10 | -0.19 | 138 | 0.3% |
+| IT_CNOR | 50,245 | 0.58 | 0.56 | -0.10 | -0.24 | 23 | 0.0% |
+| IT_CSUD | 50,251 | 0.48 | 0.46 | -0.23 | -0.32 | 24 | 0.0% |
+| IT_NORD | 50,224 | 0.60 | 0.55 | -0.07 | -0.26 | 5 | 0.0% |
+| IT_SARD | 50,251 | 0.54 | 0.44 | -0.21 | -0.22 | 194 | 0.4% |
+| IT_SICI | 50,105 | 0.53 | 0.41 | -0.33 | -0.34 | 128 | 0.3% |
+| IT_SUD | 50,251 | 0.53 | 0.49 | -0.32 | -0.33 | 48 | 0.1% |
+| Total | | | | | | 1,480 | |
+
+Table 4.2: Price with load by zone and year (raw / adjusted)
+
+| Zone | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 |
+| --- | --- | --- | --- | --- | --- | --- |
+| DK_1 | 0.58 / 0.47 | 0.41 / 0.23 | 0.49 / 0.37 | 0.23 / -0.01 | 0.46 / 0.42 | 0.25 / 0.19 |
+| DK_2 | 0.60 / 0.49 | 0.31 / 0.10 | 0.51 / 0.33 | 0.18 / -0.13 | 0.53 / 0.48 | 0.26 / 0.09 |
+| GB_GBN | 0.50 / 0.13 | 0.22 / 0.04 | 0.60 / 0.48 | 0.34 / -0.02 | 0.65 / 0.63 | 0.53 / 0.38 |
+| IT_CNOR | 0.58 / 0.59 | 0.51 / 0.45 | 0.63 / 0.61 | 0.50 / 0.43 | 0.60 / 0.55 | 0.64 / 0.69 |
+| IT_CSUD | 0.54 / 0.61 | 0.49 / 0.48 | 0.57 / 0.57 | 0.40 / 0.34 | 0.49 / 0.49 | 0.62 / 0.72 |
+| IT_NORD | 0.67 / 0.63 | 0.66 / 0.57 | 0.58 / 0.53 | 0.55 / 0.46 | 0.64 / 0.58 | 0.71 / 0.71 |
+| IT_SARD | 0.63 / 0.60 | 0.50 / 0.35 | 0.57 / 0.45 | 0.55 / 0.46 | 0.45 / 0.29 | 0.66 / 0.62 |
+| IT_SICI | 0.46 / 0.32 | 0.48 / 0.40 | 0.57 / 0.47 | 0.60 / 0.48 | 0.54 / 0.36 | 0.65 / 0.67 |
+| IT_SUD | 0.57 / 0.56 | 0.48 / 0.38 | 0.56 / 0.47 | 0.57 / 0.56 | 0.43 / 0.36 | 0.60 / 0.61 |
+
+Table 4.3: Price with wind and solar generation by zone and year (raw / adjusted)
+
+| Zone | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 |
+| --- | --- | --- | --- | --- | --- | --- |
+| DK_1 | -0.35 / -0.43 | -0.45 / -0.51 | -0.45 / -0.51 | -0.36 / -0.42 | -0.41 / -0.46 | -0.49 / -0.53 |
+| DK_2 | -0.27 / -0.35 | -0.23 / -0.29 | -0.34 / -0.44 | -0.27 / -0.35 | -0.33 / -0.40 | -0.45 / -0.52 |
+| GB_GBN | -0.07 / -0.31 | -0.07 / -0.14 | -0.14 / -0.33 | -0.06 / -0.18 | -0.16 / -0.30 | -0.20 / -0.35 |
+| IT_CNOR | -0.15 / -0.17 | -0.13 / -0.13 | -0.08 / -0.29 | 0.02 / 0.00 | -0.15 / -0.38 | -0.20 / -0.38 |
+| IT_CSUD | -0.30 / -0.36 | -0.31 / -0.40 | -0.18 / -0.31 | -0.15 / -0.19 | -0.22 / -0.26 | -0.32 / -0.43 |
+| IT_NORD | 0.06 / -0.06 | 0.01 / -0.25 | -0.08 / -0.32 | 0.05 / -0.00 | -0.11 / -0.40 | -0.15 / -0.37 |
+| IT_SARD | -0.25 / -0.25 | -0.27 / -0.26 | -0.16 / -0.18 | -0.27 / -0.28 | -0.23 / -0.20 | -0.18 / -0.14 |
+| IT_SICI | -0.39 / -0.43 | -0.44 / -0.41 | -0.42 / -0.40 | -0.41 / -0.46 | -0.34 / -0.34 | -0.31 / -0.29 |
+| IT_SUD | -0.41 / -0.44 | -0.44 / -0.41 | -0.34 / -0.37 | -0.31 / -0.32 | -0.36 / -0.32 | -0.34 / -0.35 |
+
+Table 4.4: How many of the 54 zone-years and 9 zones show each pattern (tallied from Tables 4.1 to 4.3)
+
+| Pattern | Count |
+| --- | --- |
+| Whole period, price with load positive, raw and adjusted | 9 of 9 zones |
+| Whole period, price with wind and solar negative, raw and adjusted | 9 of 9 zones |
+| Whole period, adjusted price with wind and solar more negative than raw | 9 of 9 zones |
+| Whole period, adjusted price with load lower than raw | 9 of 9 zones |
+| Price with load positive, raw, by zone-year | 54 of 54 |
+| Price with load positive, adjusted, by zone-year | 51 of 54 |
+| Price with load zero or negative, adjusted, by zone-year | 3 of 54 (DK_1, DK_2 and GB_GBN, all in 2018) |
+| Price with wind and solar negative, raw, by zone-year | 50 of 54 |
+| Price with wind and solar positive, raw, by zone-year | 4 of 54 (IT_CNOR in 2018, IT_NORD in 2015, 2016 and 2018) |
+| Price with wind and solar at -0.06 or lower, adjusted, by zone-year | 52 of 54 |
+| Price with wind and solar about zero, adjusted, by zone-year | 2 of 54 (IT_CNOR and IT_NORD in 2018) |
+
+- In every zone, prices tended to be higher when demand was higher. The whole-period correlation between price and load was between 0.38 and 0.60 raw, and between 0.22 and 0.56 after the daily cycle is removed. It was positive in all 54 zone-years when raw (Tables 4.1, 4.2 and 4.4).
+- Part of this comes from the daily cycle. For Denmark and the United Kingdom, removing it lowers the whole-period correlation from 0.38 to between 0.22 and 0.27. For Italy, it changes little (for example 0.58 to 0.56 in IT_CNOR) (Table 4.1).
+- After the daily cycle is removed, the price-and-load relationship disappears in three zone-years, all in 2018: DK_1 (-0.01), DK_2 (-0.13) and GB_GBN (-0.02). In GB_GBN in 2016 it is also very small (0.04) (Tables 4.2 and 4.4).
+- In every zone, prices tended to be lower when wind and solar output was high. The whole-period correlation was between -0.07 and -0.33 raw and between -0.19 and -0.37 adjusted (Table 4.1).
+- This relationship is clearer after the daily cycle is removed, because solar output peaks at midday, when prices are also high. The adjusted value is more negative than the raw value in all nine zones. For IT_NORD it goes from -0.07 to -0.26, and for GB_GBN from -0.10 to -0.19 (Tables 4.1 and 4.4).
+- The relationship held in each year. Adjusted, it was -0.06 or lower in 52 of the 54 zone-years, and about zero in IT_CNOR and IT_NORD in 2018 (Tables 4.3 and 4.4).
+- The relationship is strongest in Denmark, where the adjusted correlation was between -0.29 and -0.53 in every year, and weakest in GB_GBN in 2016 (-0.14) and IT_SARD in 2020 (-0.14) (Table 4.3).
+- Prices of zero or below occurred in 1,480 zone-hours, mostly in Denmark: 558 hours in DK_1 (1.1% of its hours) and 362 in DK_2 (0.7%). The lowest price in each Italian zone was zero, so none went below zero (Table 4.1).
+
+### What this means
+
+Across these nine zones, the data shows two consistent patterns. Prices tend to rise with demand, and prices tend to fall when wind and solar output is high. Both hold in every zone over the whole period, and both held in nearly every year. The relationships are moderate and not strong, and the strength differs by market: demand matters more in Italy, and wind and solar output matters more in Denmark.
+
+The price-and-load link is the weaker of the two in Denmark and the United Kingdom, where part of it comes from the daily cycle that both follow, and in 2018 it disappears in all three zones. The data does not say why.
+
+For a reader who uses these findings, the practical point is that high wind and solar output goes with lower prices in every market tested, and that the data shows direction and consistency and not the size of the effect on the price.
+
+### Limitations
+
+- These are associations. A correlation shows how closely two series move together, not that one causes the other.
+- A day-ahead price is set the day before from forecasts, so its relationship with actual load and generation is indirect.
+- The size of the effect on the price was not measured. A planned comparison of mean prices across groups of hours was not run (Decision 23), and mean prices are not reported because the currency of the Danish, British and Italian columns was not confirmed.
+- Only three countries are covered, and the nine zones are three markets. Italy's six zones are parts of one national market, so they are not independent.
+- The 23 other zones are not used, because they lack load, solar or enough price readings (Decision 22).
+- Fuel prices, carbon prices and weather are not in the data, and each of them could account for part of the relationships.
+- The load, price and generation readings of the zones were not screened for extreme hours.
+- Years are January to September, and 2020 includes the spring of the pandemic, when demand fell.
+- The primary data comes from the ENTSO-E Transparency Platform and each country's transmission system operator, and their terms apply (Decision 1).
