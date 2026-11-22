@@ -116,4 +116,4 @@ Michael Onojah, Electrical and Electronics Engineering graduate (Federal Univers
 - Skills: SQL, Excel, Power BI and Python.
 
 - GitHub: [HonourJAH](https://github.com/HonourJAH)
-- LinkedIn: [LinkedIn](linkedin.com/in/friday-onojah-9a5698219)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/friday-onojah-9a5698219)
