@@ -482,3 +482,50 @@ Table 10.1: Price zones that meet the rule
 - **Decided:** The question is answered with these correlations, which show the direction of each relationship and whether it holds in each year. The comparison of mean prices across five equal groups of hours, planned in Decision 21, was not run. Mean prices are not reported.
 - **Why:** The question asks about direction and consistency by year, which the correlations answer. Mean prices were left out because I did not confirm the currency of the Danish, British and Italian price columns.
 - **Limit:** The size of the effect on the price is not measured. A day-ahead price is set the day before from forecasts, so its relationship with actual load and generation is indirect. The load, price and generation readings of the zones were not screened for extreme hours, and zone load was not part of the screen in Decision 12. The nine zones are three markets, and Italy's six zones are parts of one market. Fuel prices, carbon prices and weather are not in the data.
+
+## Part 11: Business question 5
+
+### Decision 24: Apply the coverage rule to the day-ahead load forecast and fix how forecast errors are measured
+
+- **Found:** The query sql/21_check_forecast_coverage_by_country.sql counts, for each of the 32 country totals, the hours with both an actual load and a day-ahead forecast, leaving out the suspect hours of Decision 13. 22 countries meet the whole-period rule and have at least 90% coverage in all six years. Six more have all six years at 90% or more but fewer than 50,000 matched hours. Bulgaria and Serbia have five years, Ukraine three and Cyprus one (Table 11.1). No forecast value is zero or negative. In 14 countries, 1,850 hours have a forecast more than double or less than half of the actual load, 1,209 of them in Luxembourg (Table 11.2).
+- **Decided:** Rule 9 of Decision 8 applies. The error for an hour is the absolute difference between the forecast and the actual load, divided by the actual load. The mean, the median, the 90th percentile and the share of hours with an error above 5% are reported. Rule 4 is applied as written: the 22 countries enter the whole-period figures and the ranking, and a country enters a year or a season only if at least 90% of that period's hours are matched. Countries are ranked by the median error, and the mean is also reported without the hours in which the forecast is more than double or less than half of the actual load. Those hours stay in every other figure. Hours with an actual load of zero or below would be left out. The hour of the day uses UTC (rule 6), covers the whole period and the 22 countries, and is reported as the hours with the highest and lowest median error. Years are January to September, and seasons are as in Decision 16.
+- **Why:** The median is not moved much by a few extreme hours. Leaving the extreme hours out of the mean as well as keeping them shows how much they matter. The double-or-half limits were set in the coverage query before its result was seen.
+- **Limit:** The choice to rank by the median was made after the counts of extreme hours were seen, but before any error was computed. I do not know whether the extreme hours are forecast errors or actual readings that the screen of Decision 12 missed. The hour of the day in UTC is one to two hours behind local time in these countries, and the offset changes with summer time. The forecast is the day-ahead forecast published for each country, and the data does not say how it was made.
+
+Table 11.1: Coverage of the forecast, by group
+
+| Group | Countries | Matched hours |
+| --- | --- | --- |
+| Whole-period rule and all six years | 22 | 50,172 to 50,400 |
+| Six years, under 50,000 hours | EE (49,871), IE (49,375), LT (49,590), LU (48,651), ME (49,463), GB_UKM (49,336) | 48,651 to 49,871 |
+| Five years | BG (46,643), RS (49,374) | 46,643 to 49,374 |
+| Three years | UA | 25,305 |
+| One year | CY | 11,151 |
+
+Table 11.2: Hours with a forecast more than double or less than half of the actual load
+
+| Country | Hours | Share of the country's matched hours |
+| --- | --- | --- |
+| LU | 1,209 | 2.5% |
+| ME | 326 | 0.7% |
+| EE | 150 | 0.3% |
+| CH | 53 | 0.1% |
+| RS | 50 | 0.1% |
+| AT | 27 | 0.1% |
+| GB_UKM | 13 | 0.0% |
+| LT | 9 | 0.0% |
+| NL | 3 | 0.0% |
+| SE | 3 | 0.0% |
+| DK | 2 | 0.0% |
+| LV | 2 | 0.0% |
+| SI | 2 | 0.0% |
+| SK | 1 | 0.0% |
+| Other 18 countries | 0 | 0.0% |
+| Total | 1,850 | |
+
+### Decision 25: Answer business question 5 with the forecast error figures, and report Norway, the Netherlands and Switzerland with warnings
+
+- **Found:** The queries sql/analysis/q05_forecast_error_by_country_and_period.sql and sql/analysis/q05_forecast_error_by_hour_of_day.sql give the forecast error for each country, for the whole period, for each year (January to September), for the seasons, and by hour of the day (UTC). The matched hours equal the hours in the coverage check for all 32 countries, so no hour was dropped because the actual load was zero or below. Norway's median error is 0.00% in 2015 to 2018 and 0.01% in 2019, which is far below any other country (Table 5.1 in the findings). The Netherlands and Switzerland have the largest errors, and their yearly medians vary widely (Table 5.2). Leaving out the hours in which the forecast is more than double or less than half of the actual load changes a country's mean error by at most 0.13 percentage points (Table 5.1).
+- **Decided:** The question is answered with these figures. The 22 countries that meet the whole-period rule are ranked by the median error. Norway is shown but not described as the most accurate. The six countries that meet the yearly rule but not the whole-period rule are shown in the yearly and seasonal tables only. The hours with extreme forecast values were not examined one by one, and they stay in the error figures.
+- **Why:** The error figures answer the question as it was asked, and the extreme hours have almost no effect on the means of the countries that are ranked.
+- **Limit:** I did not test whether Norway's forecast is independent of its actual load, and I do not know whether the forecast and actual load measure the same quantity in every year for the Netherlands and Switzerland. Both countries also showed a one-year step in the actual load in business question 1. I do not know whether the extreme forecast hours are forecast errors or actual readings that the screen of Decision 12 missed. The error is a share of the actual load, so it does not show the size of an error in MW. The hour of the day is in UTC, which is one to two hours behind local time in these countries.

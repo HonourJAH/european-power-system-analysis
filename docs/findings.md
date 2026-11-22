@@ -501,3 +501,211 @@ For a reader who uses these findings, the practical point is that high wind and 
 - The load, price and generation readings of the zones were not screened for extreme hours.
 - Years are January to September, and 2020 includes the spring of the pandemic, when demand fell.
 - The primary data comes from the ENTSO-E Transparency Platform and each country's transmission system operator, and their terms apply (Decision 1).
+
+## Business question 5: How accurate is the day-ahead load forecast, which countries have the largest errors, and does the error change by hour, season and year?
+
+### Findings
+
+The day-ahead forecast is the load forecast that each country's transmission operator publishes for the next day. The error for an hour is the absolute difference between the forecast and the actual load, divided by the actual load. The median error is the typical error, and the 90th percentile shows how large the worse hours are. Countries are ranked by the median error, because a few extreme hours move a median much less than a mean. Hours that look like errors in the actual load are left out (Decision 13). The 22 countries that meet the coverage rule have at least 50,000 matched hours (Decision 24). The other countries are shown only for the years and seasons in which at least 90% of the hours are matched, and the cell shows "n/a" where they are not. Hours of the day are in UTC. Years are January to September.
+
+Table 5.1: Forecast error by country, 2015 to 2020, ranked by the median error
+
+| Rank | Country | Matched hours | Median error | Mean error | Mean error without extreme hours | 90th percentile | Share of hours above 5% | Hours with a forecast more than double or less than half of the actual load |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Norway (see the note below) | 50,257 | 0.00% | 0.58% | 0.58% | 1.49% | 2.7% | 0 |
+| 2 | Denmark | 50,394 | 0.71% | 1.05% | 1.05% | 2.26% | 1.3% | 2 |
+| 3 | Spain | 50,378 | 0.81% | 1.10% | 1.10% | 2.34% | 0.9% | 0 |
+| 4 | Romania | 50,275 | 1.15% | 1.45% | 1.45% | 3.04% | 1.7% | 0 |
+| 5 | France | 50,356 | 1.47% | 1.75% | 1.75% | 3.54% | 2.4% | 0 |
+| 6 | Finland | 50,316 | 1.58% | 1.96% | 1.96% | 4.04% | 5.0% | 0 |
+| 7 | Croatia | 50,374 | 1.61% | 2.11% | 2.11% | 4.39% | 6.9% | 0 |
+| 8 | Italy | 50,374 | 1.63% | 2.07% | 2.07% | 4.35% | 6.8% | 0 |
+| 9 | Poland | 50,351 | 1.63% | 2.14% | 2.14% | 4.69% | 8.5% | 0 |
+| 10 | Czechia | 50,243 | 1.79% | 2.18% | 2.18% | 4.52% | 7.1% | 0 |
+| 11 | Latvia | 50,172 | 1.87% | 2.32% | 2.31% | 4.78% | 8.7% | 2 |
+| 12 | Slovakia | 50,358 | 1.90% | 2.37% | 2.36% | 4.94% | 9.7% | 1 |
+| 13 | Belgium | 50,376 | 2.02% | 2.52% | 2.52% | 5.27% | 11.5% | 0 |
+| 14 | Sweden | 50,183 | 2.03% | 2.52% | 2.51% | 5.23% | 11.5% | 3 |
+| 15 | Portugal | 50,362 | 2.03% | 2.80% | 2.80% | 6.26% | 16.1% | 0 |
+| 16 | Greece | 50,363 | 2.35% | 3.17% | 3.17% | 6.92% | 19.8% | 0 |
+| 17 | Slovenia | 50,339 | 2.35% | 3.18% | 3.18% | 6.87% | 19.5% | 2 |
+| 18 | Germany | 50,376 | 2.49% | 3.05% | 3.05% | 6.27% | 17.8% | 0 |
+| 19 | Hungary | 50,353 | 3.78% | 3.98% | 3.98% | 6.94% | 29.4% | 0 |
+| 20 | Austria | 50,375 | 3.94% | 5.03% | 4.94% | 10.00% | 39.1% | 27 |
+| 21 | Switzerland | 50,281 | 7.40% | 9.22% | 9.09% | 18.37% | 64.6% | 53 |
+| 22 | Netherlands | 50,400 | 9.54% | 11.38% | 11.38% | 23.34% | 71.2% | 3 |
+
+Norway's forecast error is close to zero in most years, far below any other country (Table 5.2). A forecast made a day ahead is not expected to be that exact, and I did not test whether Norway's forecast is independent of its actual load. Norway is shown in its place, and is not described as the most accurate.
+
+Table 5.2: Median forecast error by year, January to September
+
+| Country | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | Range, highest minus lowest |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Austria | 4.31% | 3.61% | 4.57% | 4.42% | 3.29% | 3.35% | 1.28 |
+| Belgium | 1.78% | 1.81% | 1.72% | 1.80% | 2.06% | 2.99% | 1.27 |
+| Bulgaria | n/a | 2.12% | 2.28% | 1.98% | 2.10% | 2.39% | n/a |
+| Croatia | 1.44% | 1.75% | 1.55% | 1.73% | 1.63% | 1.54% | 0.31 |
+| Cyprus | n/a | n/a | 6.99% | n/a | n/a | n/a | n/a |
+| Czechia | 1.42% | 2.06% | 2.35% | 1.79% | 2.27% | 1.53% | 0.93 |
+| Denmark | 0.65% | 0.65% | 0.67% | 0.77% | 0.75% | 0.86% | 0.21 |
+| Estonia | 13.86% | 9.08% | 4.40% | 4.41% | 6.30% | 7.13% | 9.46 |
+| Finland | 1.35% | 1.30% | 1.52% | 1.80% | 1.48% | 1.65% | 0.50 |
+| France | 1.41% | 1.46% | 1.54% | 1.46% | 1.45% | 1.54% | 0.13 |
+| Germany | 2.19% | 3.11% | 2.07% | 2.39% | 3.11% | 2.23% | 1.04 |
+| Greece | 2.35% | 2.59% | 2.85% | 1.98% | 1.97% | 2.80% | 0.88 |
+| Hungary | 3.81% | 3.83% | 3.75% | 3.69% | 3.79% | 4.15% | 0.46 |
+| Ireland | 5.18% | 4.33% | 4.22% | 3.31% | 4.83% | 6.59% | 3.28 |
+| Italy | 1.45% | 1.75% | 1.56% | 1.51% | 1.73% | 1.83% | 0.38 |
+| Latvia | 2.55% | 1.83% | 1.66% | 1.75% | 1.61% | 1.77% | 0.94 |
+| Lithuania | 2.64% | 2.83% | 1.96% | 1.83% | 1.33% | 1.58% | 1.50 |
+| Luxembourg | 4.86% | 2.66% | 3.73% | 10.08% | 7.60% | 5.60% | 7.42 |
+| Montenegro | 2.12% | 3.52% | 2.98% | 3.88% | 3.36% | 4.05% | 1.93 |
+| Netherlands | 19.71% | 6.58% | 6.68% | 6.22% | 15.51% | 11.23% | 13.49 |
+| Norway | 0.00% | 0.00% | 0.00% | 0.00% | 0.01% | 0.73% | 0.73 |
+| Poland | 1.40% | 1.50% | 1.58% | 1.59% | 1.96% | 2.00% | 0.60 |
+| Portugal | 1.85% | 1.83% | 1.76% | 2.51% | 2.50% | 2.02% | 0.75 |
+| Romania | 1.24% | 1.27% | 1.16% | 1.16% | 1.04% | 1.22% | 0.23 |
+| Serbia | n/a | 2.82% | 2.40% | 2.16% | 2.11% | 2.35% | n/a |
+| Slovakia | 1.95% | 1.79% | 1.89% | 1.75% | 1.93% | 2.04% | 0.29 |
+| Slovenia | 3.86% | 2.42% | 2.21% | 1.93% | 2.20% | 2.23% | 1.93 |
+| Spain | 1.01% | 0.84% | 0.81% | 0.71% | 0.70% | 0.89% | 0.31 |
+| Sweden | 2.17% | 2.22% | 2.06% | 2.14% | 1.93% | 1.96% | 0.29 |
+| Switzerland | 9.21% | 4.48% | 7.50% | 8.43% | 10.24% | 5.66% | 5.76 |
+| Ukraine | n/a | n/a | n/a | 2.45% | 2.99% | 4.56% | n/a |
+| United Kingdom | 4.12% | 5.94% | 6.24% | 6.12% | 6.74% | 7.17% | 3.05 |
+
+Table 5.3: Median forecast error by season
+
+| Country | Winter, 2015 to 2020 | Summer, 2015 to 2020 | Spring, 2015 to 2019 | Spring, 2020 |
+| --- | --- | --- | --- | --- |
+| Austria | 4.15% | 3.91% | 3.83% | 3.89% |
+| Belgium | 2.06% | 2.00% | 1.76% | 3.91% |
+| Bulgaria | n/a | 1.83% | n/a | 2.88% |
+| Croatia | 1.62% | 1.67% | 1.60% | 1.83% |
+| Cyprus | n/a | n/a | n/a | n/a |
+| Czechia | 1.55% | 2.28% | 1.83% | 2.04% |
+| Denmark | 0.68% | 0.71% | 0.75% | 0.96% |
+| Estonia | 8.55% | 6.82% | 7.69% | 8.09% |
+| Finland | 1.40% | 1.41% | 1.59% | 1.83% |
+| France | 1.45% | 1.46% | 1.51% | 1.73% |
+| Germany | 2.64% | 2.13% | 2.93% | 3.29% |
+| Greece | 2.44% | 2.37% | 2.38% | 3.67% |
+| Hungary | 2.95% | 4.35% | 4.00% | 3.55% |
+| Ireland | 5.72% | 4.23% | 3.72% | 14.45% |
+| Italy | 1.54% | 1.74% | 1.55% | 2.05% |
+| Latvia | 1.77% | 1.82% | 1.98% | 1.70% |
+| Lithuania | 1.71% | 2.03% | 1.98% | 1.76% |
+| Luxembourg | 5.51% | 4.59% | 5.60% | 4.19% |
+| Montenegro | 2.87% | 2.81% | 4.39% | n/a |
+| Netherlands | 7.83% | 11.39% | 9.62% | 11.08% |
+| Norway | 0.00% | 0.00% | 0.00% | 0.72% |
+| Poland | 1.66% | 1.69% | 1.52% | 2.20% |
+| Portugal | 2.22% | 1.82% | 2.19% | 2.40% |
+| Romania | 1.05% | 1.25% | 1.23% | 1.39% |
+| Serbia | 2.12% | 2.15% | 2.65% | 2.49% |
+| Slovakia | 1.94% | 1.88% | 1.87% | 2.07% |
+| Slovenia | 2.37% | 2.53% | 2.43% | 2.31% |
+| Spain | 0.79% | 0.83% | 0.79% | 1.18% |
+| Sweden | 1.74% | 2.29% | 2.14% | 2.08% |
+| Switzerland | 6.92% | 7.73% | 7.31% | 7.36% |
+| Ukraine | n/a | n/a | n/a | 4.52% |
+| United Kingdom | 5.13% | 6.34% | 6.01% | 8.31% |
+
+Table 5.4: Hour of the day (UTC) with the highest and lowest median forecast error, 22 countries
+
+| Country | Worst hour | Median error at the worst hour | Best hour | Median error at the best hour | Worst-to-best ratio |
+| --- | --- | --- | --- | --- | --- |
+| Austria | 15:00 | 4.51% | 19:00 | 3.20% | 1.41 |
+| Belgium | 12:00 | 2.26% | 08:00 | 1.76% | 1.28 |
+| Croatia | 14:00 | 1.96% | 07:00 | 1.37% | 1.43 |
+| Czechia | 14:00 | 1.98% | 06:00 | 1.58% | 1.25 |
+| Denmark | 21:00 | 1.62% | 13:00 | 0.51% | 3.16 |
+| Finland | 16:00 | 1.79% | 22:00 | 1.25% | 1.43 |
+| France | 22:00 | 2.25% | 08:00 | 1.00% | 2.24 |
+| Germany | 06:00 | 2.65% | 18:00 | 2.36% | 1.12 |
+| Greece | 14:00 | 3.10% | 00:00 | 1.78% | 1.74 |
+| Hungary | 03:00 | 5.06% | 18:00 | 3.33% | 1.52 |
+| Italy | 20:00 | 2.24% | 02:00 | 1.15% | 1.95 |
+| Latvia | 21:00 | 2.09% | 05:00 | 1.55% | 1.35 |
+| Netherlands | 23:00 | 11.59% | 17:00 | 7.62% | 1.52 |
+| Norway | 21:00 | 0.44% | 06:00 | 0.00% | n/a |
+| Poland | 04:00 | 5.32% | 23:00 | 1.03% | 5.16 |
+| Portugal | 15:00 | 2.40% | 09:00 | 1.71% | 1.41 |
+| Romania | 12:00 | 1.37% | 22:00 | 1.01% | 1.35 |
+| Slovakia | 04:00 | 4.20% | 01:00 | 1.37% | 3.07 |
+| Slovenia | 11:00 | 2.99% | 04:00 | 1.95% | 1.53 |
+| Spain | 16:00 | 1.11% | 23:00 | 0.63% | 1.77 |
+| Sweden | 21:00 | 2.56% | 08:00 | 1.76% | 1.45 |
+| Switzerland | 16:00 | 8.41% | 10:00 | 6.10% | 1.38 |
+
+Table 5.5: Countries showing each pattern (tallied from Tables 5.1 to 5.4, 22 countries)
+
+| Pattern | Countries |
+| --- | --- |
+| Median error below 2% | 12 of 22 |
+| Median error from 2% to below 3% | 6 of 22 |
+| Median error from 3% to below 5% | 2 of 22 |
+| Median error of 5% or more | 2 of 22 |
+| Share of hours with an error above 5% is 10% or less | 12 of 22 |
+| Yearly median varies by 1.0 point or less | 16 of 22 |
+| Yearly median varies by more than 1.0 and up to 2.0 points | 4 of 22 |
+| Yearly median varies by more than 2.0 points | 2 of 22 |
+| Median error higher in summer than in winter | 15 of 22 |
+| Median error higher in winter than in summer | 6 of 22 |
+| Median error the same in winter and summer | 1 of 22 |
+| Median error higher in spring 2020 than in spring 2015 to 2019 | 18 of 22 |
+| Median error lower in spring 2020 than in spring 2015 to 2019 | 4 of 22 |
+| Worst hour of the day in the afternoon (11:00 to 16:00) | 11 of 22 |
+| Worst hour of the day in the evening (20:00 to 23:00) | 7 of 22 |
+| Worst hour of the day in the early morning (03:00 to 06:00) | 4 of 22 |
+| Worst-to-best ratio below 1.5 | 11 of 22 |
+| Worst-to-best ratio from 1.5 to 2.0 | 6 of 22 |
+| Worst-to-best ratio above 2.0 | 4 of 22 |
+| Worst-to-best ratio not meaningful (Norway) | 1 of 22 |
+
+Table 5.6: Countries that do not meet the whole-period rule, with hours in which the forecast is more than double or less than half of the actual load
+
+| Country | Matched hours | Hours with an extreme forecast | Share of matched hours |
+| --- | --- | --- | --- |
+| Luxembourg | 48,651 | 1,209 | 2.5% |
+| Montenegro | 49,463 | 326 | 0.7% |
+| Estonia | 49,871 | 150 | 0.3% |
+| Serbia | 49,374 | 50 | 0.1% |
+| United Kingdom | 49,336 | 13 | 0.0% |
+| Lithuania | 49,590 | 9 | 0.0% |
+| Ireland | 49,375 | 0 | 0.0% |
+| Bulgaria | 46,643 | 0 | 0.0% |
+| Ukraine | 25,305 | 0 | 0.0% |
+| Cyprus | 11,151 | 0 | 0.0% |
+
+- Over 2015 to 2020, the typical forecast error ranged from 0.00% in Norway to 9.54% in the Netherlands across the 22 countries that meet the coverage rule. In 12 countries the median error was below 2%, in 6 it was from 2% to below 3%, in 2 it was from 3% to below 5% (Hungary 3.78% and Austria 3.94%), and in 2 it was above 7% (Switzerland 7.40% and the Netherlands 9.54%) (Tables 5.1 and 5.5).
+- The Netherlands and Switzerland had the largest errors on every measure. Their 90th percentile errors were 23.34% and 18.37%, and 71.2% and 64.6% of their hours had an error above 5%. In 12 countries no more than 10% of hours had an error above 5% (Tables 5.1 and 5.5).
+- Among the countries with typical errors, Denmark (0.71%), Spain (0.81%) and Romania (1.15%) had the smallest median errors. Norway's error was close to zero (a median of 0.00% in 2015 to 2018, and 0.73% in 2020), far below any other country, and it is shown in its place and not described as the most accurate (Tables 5.1 and 5.2).
+- The hours in which the forecast was more than double or less than half of the actual load have almost no effect on the ranked countries. Leaving them out changes a mean error by at most 0.13 percentage points (Switzerland, from 9.22% to 9.09%) and 0.09 in Austria (Table 5.1).
+- Luxembourg has the most such hours (1,209, which is 2.5% of its matched hours), followed by Montenegro (326) and Estonia (150). These three countries and the others in Table 5.6 do not meet the whole-period rule, so they are not ranked (Table 5.6).
+- The size of the forecast error depends on the hour of the day. In 11 of the 22 countries, the error at the worst hour was less than 1.5 times the error at the best hour, in 6 it was between 1.5 and 2 times, and in 4 it was more than twice (Denmark 3.16, France 2.24, Poland 5.16 and Slovakia 3.07). The worst hour fell in the afternoon (11:00 to 16:00) in 11 countries, in the evening (20:00 to 23:00) in 7, and in the early morning (03:00 to 06:00) in 4 (Tables 5.4 and 5.5).
+- The error changes little between winter and summer in most countries. It was higher in summer in 15 of the 22 countries and higher in winter in 6, and in 6 countries the two medians differ by 0.05 points or less (Denmark, Finland, France, Latvia, Poland and Spain). The largest differences are in the Netherlands (7.83% in winter against 11.39% in summer), Hungary (2.95% against 4.35%) and Czechia (1.55% against 2.28%) (Tables 5.3 and 5.5).
+- In spring 2020 the median error was higher than in spring 2015 to 2019 in 18 of the 22 countries and lower in 4 (Hungary, Latvia, Slovenia and Sweden). The largest rises were in Belgium (1.76% to 3.91%), the Netherlands (9.62% to 11.08%) and Greece (2.38% to 3.67%) (Tables 5.3 and 5.5).
+- From year to year the typical error was steady in most countries. The yearly median varied by 1.0 point or less in 16 of the 22 countries, by more than 1.0 and up to 2.0 points in 4 (Austria, Belgium, Germany and Slovenia), and by more than 2.0 points in 2: the Netherlands (6.22% to 19.71%) and Switzerland (4.48% to 10.24%) (Tables 5.2 and 5.5).
+- Among the countries that do not meet the whole-period rule, Estonia's yearly median fell from 13.86% in 2015 to 4.40% in 2017 and rose to 7.13% in 2020, Luxembourg's ranged from 2.66% to 10.08%, and the United Kingdom's rose every year from 4.12% in 2015 to 7.17% in 2020 except for a small fall in 2018 (Table 5.2).
+
+### What this means
+
+In most countries the day-ahead load forecast is close to what happened: the typical error is below 3%, and it changes little from year to year or between winter and summer. The size of the error does depend on the time of day, with the worst hour usually in the afternoon or the evening, and in four countries the worst hour has more than double the error of the best hour.
+
+A few countries stand apart. The Netherlands and Switzerland have errors several times larger than the rest, and their errors vary a lot from year to year. Norway's error is so close to zero that the forecast may not be an independent forecast. Spring 2020 was harder to forecast than earlier springs in 18 of the 22 countries, which is consistent with the changes in demand during the pandemic, though this question does not test that.
+
+For a reader who uses these figures, the practical point is that forecast quality differs between countries and hours. A user who relies on the forecast would plan larger reserves in the Netherlands and Switzerland than elsewhere, and would treat the Norwegian figures with caution.
+
+### Limitations
+
+- These are associations. The data does not show why a country's forecast is more or less accurate.
+- The error is a share of the actual load, so it does not show the size of an error in MW. A 5% error in a large country is a much larger amount of electricity than in a small one.
+- I did not test whether Norway's forecast is independent of its actual load, and I do not know whether the forecast and the actual load measure the same thing in every year for the Netherlands and Switzerland. Business question 1 also found a one-year step in the actual load of these two countries.
+- The hours in which the forecast is more than double or less than half of the actual load were not examined one by one. They may be forecast errors or actual readings that the screen of Decision 12 missed, and they stay in the error figures.
+- Hours of the day are in UTC, which is one to two hours behind local time in these countries, and the offset changes with summer time.
+- Winter is January and February only, summer is June to August, and spring is March to May, so September to December is not part of any season. Spring 2020 includes the pandemic.
+- The 22 ranked countries meet the whole-period rule. The other countries are shown only for the years and seasons in which at least 90% of the hours are matched (Decision 24).
+- Suspect hours of the actual load were left out (Decision 13), and bad hours that the screen did not catch may remain.
+- The data has no information on how each forecast was made, and it ends on 30 September 2020.
+- The primary data comes from the ENTSO-E Transparency Platform and each country's transmission system operator, and their terms apply (Decision 1).
